@@ -164,9 +164,9 @@ $.TokenList = function (input, url_or_data_or_function, settings) {
                 settings.crossDomain = (location.href.split(/\/+/g)[1] !== settings.url.split(/\/+/g)[1]);
             }
         }
-	} else if ($.type(url_or_data_or_function) === "function") {
-		// Set the callback to get data from
-		settings.data_function = url_or_data_or_function;
+    } else if ($.type(url_or_data_or_function) === "function") {
+        // Set the callback to get data from
+        settings.data_function = url_or_data_or_function;
     } else if(typeof(url_or_data_or_function) === "object") {
         // Set the local data to search through
         settings.local_data = url_or_data_or_function;
@@ -863,36 +863,36 @@ $.TokenList = function (input, url_or_data_or_function, settings) {
 
                 // Attach the success callback
                 ajax_params.success = function(results) {
-					handle_results(query, results);
+                    handle_results(query, results);
                 };
 
                 // Make the request
                 $.ajax(ajax_params);
-			} else if(settings.data_function) {
-				// Do the search with a callback
-				settings.data_function(query, handle_results);
+            } else if(settings.data_function) {
+                // Do the search with a callback
+                settings.data_function(query, handle_results);
             } else if(settings.local_data) {
                 // Do the search through local data
-				var results = $.grep(settings.local_data, function (row) {
-					return row[settings.propertyToSearch].toLowerCase().indexOf(query.toLowerCase()) > -1;
-				});
-				handle_results(query, results);
+                var results = $.grep(settings.local_data, function (row) {
+                    return row[settings.propertyToSearch].toLowerCase().indexOf(query.toLowerCase()) > -1;
+                });
+                handle_results(query, results);
             }
         }
     }
 
-	// Handle results data
-	function handle_results(query, results) {
-		if($.isFunction(settings.onResult)) {
-			results = settings.onResult.call(hidden_input, results);
-		}
-		cache.add(query, settings.jsonContainer ? results[settings.jsonContainer] : results);
+    // Handle results data
+    function handle_results(query, results) {
+        if($.isFunction(settings.onResult)) {
+            results = settings.onResult.call(hidden_input, results);
+        }
+        cache.add(query, settings.jsonContainer ? results[settings.jsonContainer] : results);
 
-		// only populate the dropdown if the results are associated with the active search query
-		if(input_box.val() === query) {
-			populate_dropdown(query, settings.jsonContainer ? results[settings.jsonContainer] : results);
-		}
-	}
+        // only populate the dropdown if the results are associated with the active search query
+        if(input_box.val() === query) {
+            populate_dropdown(query, settings.jsonContainer ? results[settings.jsonContainer] : results);
+        }
+    }
 
     // Bring browser focus to the specified object.
     // Use of setTimeout is to get around an IE bug.
