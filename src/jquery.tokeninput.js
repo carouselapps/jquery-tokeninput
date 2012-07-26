@@ -796,6 +796,17 @@ $.TokenList = function (input, url_or_data_or_function, settings) {
 
             item.addClass(settings.classes.selectedDropdownItem);
             selected_dropdown_item = item.get(0);
+
+            // Scroll the container UL when selecting with keyboard up/down, if the container UL is overflow: auto with max-height
+            var $item = $(item);
+            var $parent = $item.parents("ul");
+            if ($item.position() != null ) {
+              if ($item.position().top + $item.height() > $parent.height()) {
+                $parent.scrollTop($item.position().top + $item.height() - $parent.height() + $parent.scrollTop() + parseInt($parent.css("paddingBottom")));
+              } else if (item.position().top < 0) {
+                $parent.scrollTop($parent.scrollTop() + $item.position().top);
+              }
+            }
         }
     }
 
