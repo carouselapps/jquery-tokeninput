@@ -33,7 +33,6 @@ var DEFAULT_SETTINGS = {
     theme: null,
     zindex: 999,
     resultsLimit: null,
-    tokenWithErrorClass: "with_error",
     resultsFormatter: function(item){ return "<li>" + item[this.propertyToSearch]+ "</li>" },
     tokenFormatter: function(item) { return "<li><p>" + item[this.propertyToSearch] + "</p></li>" },
 
@@ -68,6 +67,7 @@ var DEFAULT_CLASSES = {
     token: "token-input-token",
     tokenReadOnly: "token-input-token-readonly",
     tokenDelete: "token-input-delete-token",
+    tokenWithError: "token-input-token-with-error",
     selectedToken: "token-input-selected-token",
     highlightedToken: "token-input-highlighted-token",
     dropdown: "token-input-dropdown",
@@ -501,7 +501,7 @@ $.TokenList = function (input, url_or_data, settings) {
 
         $this_token.addClass(settings.classes.token).insertBefore(input_token);
 
-        if (item.error) { $this_token.addClass(settings.tokenWithErrorClass); }
+        if (item.error) { $this_token.addClass(settings.classes.tokenWithError); }
 
         // The 'delete token' button
         if(!readonly) {
