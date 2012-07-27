@@ -19,6 +19,7 @@ var DEFAULT_SETTINGS = {
     propertyToSearch: "name",
     jsonContainer: null,
     contentType: "json",
+    commaSelectsToken: true,
 
     // Prepopulation settings
     prePopulate: null,
@@ -288,7 +289,7 @@ $.TokenList = function (input, url_or_data_or_function, settings) {
                 case KEY.ENTER:
                 case KEY.NUMPAD_ENTER:
                 case KEY.COMMA:
-                  if(selected_dropdown_item) {
+                  if(selected_dropdown_item && (event.keyCode != KEY.COMMA || settings.commaSelectsToken)) {
                     add_token($(selected_dropdown_item).data("tokeninput"));
                     hidden_input.change();
                     return false;
