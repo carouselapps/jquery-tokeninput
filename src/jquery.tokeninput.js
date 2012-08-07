@@ -217,8 +217,13 @@ $.TokenList = function (input, url_or_data_or_function, settings) {
             token_list.addClass(settings.classes.focused);
         })
         .blur(function () {
+            var first_item = $(dropdown).find("li").get(0);
+            if (first_item) {
+            add_token($(first_item).data("tokeninput"));
+                $(this).val("");
+                hidden_input.change();
+            }
             hide_dropdown();
-            $(this).val("");
             token_list.removeClass(settings.classes.focused);
         })
         .bind("keyup keydown blur update", resize_input)
